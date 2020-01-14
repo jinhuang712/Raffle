@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Raffle For CSSA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Jin Huang UBC">
+    <script>
+        let timeID;
+        const start_text = "开始";
+        const end_text = "停";
+
+        function random() {
+            return Math.floor((Math.random() * 70) + 1);
+        }
+
+        function getString(number) {
+            let string = '0' + number;
+            while (string.length < 6) {
+                string = '0' + string;
+            }
+            return string;
+        }
+
+        function raffle() {
+            timeID = setInterval(function() {
+                let number = random();
+                document.getElementById("display").innerHTML = getString(number);
+            }, 50);
+        }
+
+        window.onload = function() {
+            let start = document.getElementById("start");
+            start.innerText = start_text;
+            document.getElementById("display").innerHTML = String('000000');
+            start.onclick = function() {
+                if (start.innerText === start_text) {
+                    start.innerText = end_text;
+                    raffle();
+                } else {
+                    clearInterval(timeID);
+                    start.innerText = start_text;
+                }
+            };
+        };
+    </script>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #display {
+            font-family: "Arial", Arial, Arial, sans-serif;
+            font-variant-numeric: oldstyle-nums;
+            font-size: 1000%;
+            max-width: 988px;
+            color: #000000;
+            -webkit-text-stroke-width: 5px;
+            -webkit-text-stroke-color: white;
+        }
+
+        #start {
+            font-size: 500%;
+            text-align: center;
+        }
+
+        #stuff {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.7;
+            max-width: 988px;
+            max-height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+    </style>
+</head>
+<body id="main">
+<img src="https://i.imgur.com/2xvkuah.jpg"/>
+<div id="stuff">
+    <div>
+        <label id="display"></label>
+    </div>
+    <div>
+        <center>
+            <button id="start"></button>
+        </center>
+    </div>
+</div>
+</body>
+</html>
